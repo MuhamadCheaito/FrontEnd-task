@@ -48,7 +48,11 @@ export class UserService {
     if (this.singleUserCache[id]) {
       return of({ data: this.singleUserCache[id] });
     } else {
-      return this.http.get<{ data: User }>(`https://reqres.in/api/users/${id}`).pipe(
+      return this.http.get<{ data: User }>(`https://reqres.in/api/users/${id}`,{
+        headers: {
+          "x-api-key": "reqres-free-v1"
+        }
+      }).pipe(
         tap(response => this.singleUserCache[id] = response.data)
       );
     }
