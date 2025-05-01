@@ -1,0 +1,45 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search User by ID</mat-label>
+    <input matInput [(ngModel)]="searchQuery" (input)="onSearchById()" placeholder="Enter User ID">
+  </mat-form-field>
+</div>
+<div *ngIf="searchResult" class="search-result">
+  <p><strong>Found User: </strong> {{ searchResult.first_name }} {{ searchResult.last_name }}</p>
+  <button mat-button (click)="goToUser(searchResult.id)">Go to Details</button>
+</div>
+
+<div class="users-wrapper">
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="user-cards">
+      <mat-card
+        *ngFor="let user of users"
+        class="user-card"
+        style="cursor: pointer"
+        (click)="goToUser(user.id)"
+        [ngClass]="{ 'focused': user.id === focusedUserId }"
+      >
+      <div class="avatar-container">
+        <img class="avatar" [src]="user.avatar" alt="Avatar of {{ user.first_name }}" />
+      </div>
+        <mat-card-content>
+          <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button mat-button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+  </div>
+</div>

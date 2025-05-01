@@ -1,0 +1,28 @@
+<div class="user-detail-wrapper">
+    <div *ngIf="!loading; else loadingSkeleton" class="user-detail-container">
+      <mat-card class="user-detail-card">
+        <div class="top-bar">
+            <button mat-stroked-button color="black" (click)="goBack()">← Back</button>
+          </div>
+        <!-- Avatar First -->
+        <div class="avatar-detail-container">
+          <img class="avatar-detail" [src]="user.avatar" alt="Avatar of {{ user.first_name }}" />
+        </div>
+  
+        <mat-card-header>
+          <mat-card-title>{{ user.first_name }} {{ user.last_name }}</mat-card-title>
+        </mat-card-header>
+  
+        <mat-card-content>
+          <p>Nice to meet you, {{ user.first_name }}!</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <ng-template #loadingSkeleton>
+      <div class="skeleton-container">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+  
